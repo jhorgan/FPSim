@@ -1,0 +1,53 @@
+<link rel="import" href="/bower_components/px-icon-set/px-icon-set.html" />
+<link rel="import" href="/bower_components/px-tile/px-tile.html" />
+<link rel="import" href="/bower_components/px-tooltip/px-tooltip.html" />
+<link rel="import" href="/bower_components/px-card/px-card.html" />
+
+<!--
+    Style
+-->
+<link rel="import" href="/css/predix-test-app-styles.html">
+
+<!--
+    Elements
+-->
+<link rel="import" href="/src/elements/project-tile/project-tile.html">
+
+<dom-module id="projects-view">
+    <template>
+        
+        <style include="predix-test-app-styles" is="custom-style"></style>
+
+        <px-card header-text="Projects" icon="analysis">
+            <div class='actions'>
+                <px-icon id="projects-add" icon='px-utl:add'></px-icon>
+                <px-icon id="projects-view-tile" icon='px-nav:grid-view'></px-icon>
+                <px-icon id="projects-view-list" icon='px-nav:list-view'></px-icon>
+                <px-icon id="projects-help" icon='px-utl:help'></px-icon>
+                <px-tooltip for="projects-add" delay="50" tooltip-message="Add new project" orientation="bottom"></px-tooltip>
+                <px-tooltip for="projects-view-tile" delay="50" tooltip-message="Tile view" orientation="bottom"></px-tooltip>
+                <px-tooltip for="projects-view-list" delay="50" tooltip-message="List view" orientation="bottom"></px-tooltip>
+                <px-tooltip for="projects-help" delay="50" tooltip-message="View help on projects" orientation="auto"></px-tooltip>
+            </div>
+            <div class="flex flex--row flex--left flex--top flex--wrap test">
+                <project-tile 
+                    title="Bearings FP"
+                    description="This is some description about the project"
+                    image-url="/images/project-fp.png">
+                </project-tile>
+                <project-tile 
+                    title="Terminal Planning"
+                    description="Green Hill Terminal 2.3"
+                    image-url="/images/project-tp.png">
+                </project-tile>
+            </div>
+        </px-card>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'projects-view'
+        });
+    </script>
+
+</dom-module>

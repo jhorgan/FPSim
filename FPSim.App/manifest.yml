@@ -1,0 +1,5 @@
+---
+applications:
+  - name: px-sim-app
+    buildpack: staticfile_buildpack
+    memory: 128M
