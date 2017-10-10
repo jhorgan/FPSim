@@ -25,7 +25,10 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FPSim.App", "FPSim.App\", "
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "1547"
+		SlnRelativePath = "FPSim.App\"
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPSim.Data.Entity", "FPSim.Data.Entity\FPSim.Data.Entity.csproj", "{84AFF236-8996-4003-B04A-8B1495221083}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +48,10 @@ Global
 		{42B86448-8F4A-40DC-A365-134EA322303F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B86448-8F4A-40DC-A365-134EA322303F}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{42B86448-8F4A-40DC-A365-134EA322303F}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{84AFF236-8996-4003-B04A-8B1495221083}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84AFF236-8996-4003-B04A-8B1495221083}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84AFF236-8996-4003-B04A-8B1495221083}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84AFF236-8996-4003-B04A-8B1495221083}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
