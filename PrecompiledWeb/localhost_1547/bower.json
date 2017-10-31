@@ -1,0 +1,26 @@
+{
+  "name": "predix-test-app",
+  "version": "1.0.9",
+  "main": "index.html",
+  "dependencies": {
+    "px-app-nav": "^2.0.8",
+    "px-branding-bar": "^1.0.6",
+    "px-icon-set": "^2.0.12",
+    "px-spinner": "^2.1.0",
+    "px-breadcrumbs": "^1.0.6",
+    "px-dropdown": "^4.0.7",
+    "px-tile": "^1.0.10",
+    "px-card": "^1.0.9",
+    "px-tooltip": "^1.0.5"
+  },
+  "devDependencies": {
+    "px-flexbox-design": "^1.0.2",
+    "px-layout-design": "^1.0.1",
+    "px-starter-kit-design": "^1.0.1",
+    "px-headings-design": "^1.0.3",
+    "px-forms-design": "^2.0.6",
+    "px-shadows-design": "^1.0.2",
+    "px-actionable-design": "^2.0.4",
+    "px-buttons-design": "^2.0.5"
+  }
+}

@@ -5,6 +5,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Properties\PublishProfiles\FolderProfile1.pubxml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="wwwroot\" />
   </ItemGroup>
 
@@ -22,6 +26,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FPSim.Data.Entity\FPSim.Data.Entity.csproj" />
+    <ProjectReference Include="..\FPSim.Data.Repository\FPSim.Data.Repository.csproj" />
   </ItemGroup>
 
   <ItemGroup>

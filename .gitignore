@@ -371,3 +371,6 @@ typings/
 
 # dotenv environment variables file
 .env
+
+# Disk Images folder as this is part of the build
+Disk*Images/**

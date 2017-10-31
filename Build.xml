@@ -1,0 +1,29 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="All">
+  <PropertyGroup>
+    <Configuration>Release</Configuration>
+  </PropertyGroup>
+  
+  <Target Name="Build">
+    <MSBuild Projects="FPSim.Api/FPSim.Api.csproj" Properties="Configuration=$(Configuration);DeployOnBuild=true"/>
+  </Target>
+
+  <Target Name="Test">
+    <Exec Command="dotnet test FPSim.Data.Repository.Test\FPSim.Data.Repository.Test.csproj" />
+  </Target>
+
+  <Target Name="Package">
+    <ItemGroup>
+      <FPSimApiFiles Include="FPSim.Api\bin\$(Configuration)\netcoreapp2.0\publish\*.*" Exclude="*.pdb" />
+    </ItemGroup>
+    
+    <!-- FPSim.Api -->
+    <RemoveDir ContinueOnError="true" Directories="Disk Images\FPSim.Api" />
+    <MakeDir Directories="Disk Images\FPSim.Api" />
+    <Copy SourceFiles="@(FPSimApiFiles)" DestinationFolder="Disk Images\FPSim.Api\%(RecursiveDir)" />
+    
+  </Target>
+
+  <Target Name="All" DependsOnTargets="Test;Package">
+  </Target>
+
+</Project>

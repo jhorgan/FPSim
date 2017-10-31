@@ -7,3 +7,4 @@ applications:
     env:
         DOTNET_CLI_TELEMETRY_OPTOUT: 1
         DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        ConnectionStrings__Default: "User ID=u67iy3frnbgct1hd;Password=vcvp26y7qozn21blp2u35dm4z;Host=db-13ad83c6-5921-4d49-bedc-42af4d67f531.c7uxaqxgfov3.us-west-2.rds.amazonaws.com;Port=5432;Database=postgres;Pooling=true;"

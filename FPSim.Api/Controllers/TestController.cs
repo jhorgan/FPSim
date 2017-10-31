@@ -5,7 +5,6 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using FPSim.Api.Data;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic.CompilerServices;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -18,36 +17,12 @@ namespace FPSim.Api.Controllers
         private static readonly string ExperimentResultsUriFmt = "https://devio.witness.cloud/api/experiment/{0}/results";
         private static readonly Uri TokenUri = new Uri("https://devio.witness.cloud/token");
 
-        private readonly WitnessCloudContext _context;
-
-        public TestController(WitnessCloudContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
-        public string Get()
+        public IEnumerable<string> Get()
         {
-            return "value";
+            return new[] { "value1", "value2" };
         }
 
-        [HttpGet]
-        [Route("GetVersion")]
-        public IActionResult GetVersion()
-        {
-            IActionResult result;
-            try
-            {
-                result = new ObjectResult(_context.Version.FirstOrDefault());
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                result = BadRequest(e.ToString());
-            }
-
-            return result;
-        }
         [HttpGet]
         [Route("GetProjects")]
         public IActionResult GetProjects()
