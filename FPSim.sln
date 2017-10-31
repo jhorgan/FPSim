@@ -42,6 +42,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "FPSim.App", "Src\FPSim.App\
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "16998"
+		SlnRelativePath = "Src\FPSim.App\"
 	EndProjectSection
 EndProject
 Global
