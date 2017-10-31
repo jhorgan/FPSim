@@ -4,16 +4,16 @@
   </PropertyGroup>
   
   <Target Name="Build">
-    <MSBuild Projects="FPSim.Api/FPSim.Api.csproj" Properties="Configuration=$(Configuration);DeployOnBuild=true"/>
+    <MSBuild Projects="Src\FPSim.Api/FPSim.Api.csproj" Properties="Configuration=$(Configuration);DeployOnBuild=true"/>
   </Target>
 
   <Target Name="Test">
-    <Exec Command="dotnet test FPSim.Data.Repository.Test\FPSim.Data.Repository.Test.csproj" />
+    <Exec Command="dotnet test Tests\FPSim.Data.Repository.Test\FPSim.Data.Repository.Test.csproj" />
   </Target>
 
   <Target Name="Package">
     <ItemGroup>
-      <FPSimApiFiles Include="FPSim.Api\bin\$(Configuration)\netcoreapp2.0\publish\*.*" Exclude="*.pdb" />
+      <FPSimApiFiles Include="Src\FPSim.Api\bin\$(Configuration)\netcoreapp2.0\publish\*.*" Exclude="*.pdb" />
     </ItemGroup>
     
     <!-- FPSim.Api -->
@@ -23,7 +23,7 @@
     
   </Target>
 
-  <Target Name="All" DependsOnTargets="Test;Package">
+  <Target Name="All" DependsOnTargets="Build;Test;Package">
   </Target>
 
 </Project>
