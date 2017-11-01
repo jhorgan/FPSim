@@ -11,7 +11,10 @@ namespace FPSim.Data.Repository.Test
             var builder = new DbContextOptionsBuilder<AppDbContext>();
             builder.UseNpgsql(ConnectionString);
 
-            return new AppDbContext(builder.Options);
+            var context = new AppDbContext(builder.Options);
+            context.Database.Migrate();
+            
+            return context;
         }
     }
 }

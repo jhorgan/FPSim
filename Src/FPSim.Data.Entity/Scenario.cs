@@ -7,8 +7,8 @@ namespace FPSim.Data.Entity
         public int Id { get; set; }
         public int ProjectId { get; set; }
         public string Name { get; set; }
-        public int StatusId { get; set; }
-        public int ResultStatusId { get; set; }
+        public ScenarioStatus Status { get; set; }
+        public ScenarioResultStatus ResultStatus { get; set; }
         public string Description { get; set; }
         public DateTime? WarmUpPeriod { get; set; }
         public DateTime? StartDate { get; set; }

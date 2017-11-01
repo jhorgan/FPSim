@@ -1,24 +1,25 @@
-﻿using System.IO;
-using FPSim.Api.Data;
-using FPSim.Data.Repository;
+﻿using FPSim.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace FPSim.Api
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly ILogger _logger;
+
+        public Startup(IConfiguration configuration, ILogger logger)
         {
+            _logger = logger;
             Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
@@ -27,7 +28,6 @@ namespace FPSim.Api
             services.AddMvc();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
@@ -35,7 +35,22 @@ namespace FPSim.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            ApplyDatabaseMigrations(app);
+
             app.UseMvc();
+        }
+
+        private void ApplyDatabaseMigrations(IApplicationBuilder app)
+        {
+            _logger.LogInformation("Applying database migrations...");
+
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+                context.Database.Migrate();
+            }
+
+            _logger.LogInformation("Applied database migrations complete successfully");
         }
     }
 }
