@@ -1,0 +1,31 @@
+<link rel="import" href="/bower_components/px-breadcrumbs/px-breadcrumbs.html" />
+
+<!--
+    Style
+-->
+<link rel="import" href="/css/predix-test-app-styles.html">
+
+<dom-module id="sim-app-breadcrumbs">
+    <template>
+
+        <style include="predix-test-app-styles" is="custom-style"></style>
+
+        <px-breadcrumbs items='[[items]]' selected-route='[[selectedRoute]]'>
+        </px-breadcrumbs>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'sim-app-breadcrumbs',
+            properties: {
+                items: {
+                    type: Object
+                },
+                selectedRoute: {
+                    type: Object
+                }
+            }
+        });
+    </script>
+
+</dom-module>
