@@ -11,6 +11,7 @@
     App views / components
 -->
 <link rel="import" href="/src/views/projects-view/projects-view.html" />
+<link rel="import" href="/src/app/sim-app-breadcrumbs.html" />
 
 <!--
     Load theme files, apply default theme.
@@ -59,29 +60,32 @@
                 <span slot="title">Lanner Factory Performance Simulation</span>
             </px-branding-bar>
             <px-app-nav slot="app-nav" items='[
-            {"label":"Home","id":"home","icon":"px-fea:home"},
-            {"label":"Notifications","id":"notifications","icon":"px-com:email"},
-            {"label":"Users","id":"users","icon":"px-fea:users"},
-            {"label":"Settings","id":"settings","icon":"px-fea:administration"},
-            {"label":"About","id":"about","icon":"px-utl:information"},
-            {"label":"Logout","id":"logout","icon":"px-nav:log-out"}
+                {"label":"Home","id":"home","icon":"px-fea:home"},
+                {"label":"Notifications","id":"notifications","icon":"px-com:email"},
+                {"label":"Users","id":"users","icon":"px-fea:users"},
+                {"label":"Settings","id":"settings","icon":"px-fea:administration"},
+                {"label":"About","id":"about","icon":"px-utl:information"},
+                {"label":"Logout","id":"logout","icon":"px-nav:log-out"}
             ]' collapse-with-icon selected-route='["home"]' selected-meta='{}'>
             </px-app-nav>
 
-            <px-breadcrumbs items='[
-            {"label":"Projects","id":"projects","children": [
-                {"label":"Contact Center Options","id":"scenarios","children": [
-                    {"label":"Baseline","id":"scenario1"},
-                    {"label":"Staff Turnover Investment","id":"scenario2"},
-                    {"label":"IVR Investment","id":"scenario3"}]
-                },
-                {"label":"Contact Center Options2","id":"scenarios","children": [
-                    {"label":"Baseline","id":"scenario1"},
-                    {"label":"Staff Turnover Investment","id":"scenario2"},
-                    {"label":"IVR Investment","id":"scenario3"}]
-                }]
-            }
-        ]' selected-route='["projects", "scenarios", "scenario1"]'></px-breadcrumbs>
+            <sim-app-breadcrumbs 
+                items='[
+                    {"label":"Projects","id":"projects","children": [
+                        {"label":"Contact Center Options","id":"scenarios","children": [
+                            {"label":"Baseline","id":"scenario1"},
+                            {"label":"Staff Turnover Investment","id":"scenario2"},
+                            {"label":"IVR Investment","id":"scenario3"}]
+                        },
+                        {"label":"Contact Center Options2","id":"scenarios","children": [
+                            {"label":"Baseline","id":"scenario1"},
+                            {"label":"Staff Turnover Investment","id":"scenario2"},
+                            {"label":"IVR Investment","id":"scenario3"}]
+                        }]
+                    }
+                ]' 
+                selected-route='["projects", "scenarios", "scenario3"]'>
+            </sim-app-breadcrumbs>
 
             <div>
                 <projects-view></projects-view>
