@@ -4,17 +4,12 @@ namespace FPSim.Data.Repository.Test
 {
     internal class TestConnectionUtils
     {
-        internal static string ConnectionString => "User ID=postgres;Password=rs0LE$;Host=localhost;Port=5432;Database=fpsim;Pooling=true;";
+        public static string ConnectionString => AppDbContextFactory.DesignTimeConnectionString;
 
         internal static AppDbContext CreateDbContext()
         {
-            var builder = new DbContextOptionsBuilder<AppDbContext>();
-            builder.UseNpgsql(ConnectionString);
-
-            var context = new AppDbContext(builder.Options);
-            context.Database.Migrate();
-            
-            return context;
-        }
+            var contectFactory = new AppDbContextFactory();
+            return contectFactory.CreateDbContext(new string[] { });
+        }        
     }
 }

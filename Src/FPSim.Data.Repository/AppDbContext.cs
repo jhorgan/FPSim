@@ -44,10 +44,12 @@ namespace FPSim.Data.Repository
     /// </summary>
     public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
     {
+        public static string DesignTimeConnectionString => "User ID=postgres;Password=rs0LE$;Host=localhost;Port=5432;Database=fpsim;Pooling=true;";
+
         public AppDbContext CreateDbContext(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            optionsBuilder.UseNpgsql("User ID=postgres;Password=rs0LE$;Host=localhost;Port=5432;Database=fpsim;Pooling=true;");
+            optionsBuilder.UseNpgsql(DesignTimeConnectionString);
 
             return new AppDbContext(optionsBuilder.Options);
         }
