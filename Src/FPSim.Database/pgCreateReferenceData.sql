@@ -6,15 +6,10 @@ SELECT currval('"application_Id_seq"');
 INSERT INTO "user" ("Name", "Email") VALUES ('Jeremy Horgan', 'jhorgan@lanner.com');
 SELECT currval('"user_Id_seq"');
 
--- "scenario-status"
-INSERT INTO "scenario-status" ("Id", "Name") VALUES (1, 'Draft');
-INSERT INTO "scenario-status" ("Id", "Name") VALUES (2, 'Running');
-INSERT INTO "scenario-status" ("Id", "Name") VALUES (3, 'Error');
-INSERT INTO "scenario-status" ("Id", "Name") VALUES (4, 'Completed');
-INSERT INTO "scenario-status" ("Id", "Name") VALUES (5, 'Copying');
+-- "project"
+INSERT INTO project ("ApplicationId", "UserId", "Name", "IsArchived", "DateCreated", "DateModified") VALUES (1, 1, 'Project Test', false, current_timestamp, current_timestamp);
+SELECT currval('"project_Id_seq"');
 
--- "scenario-result-status"
-INSERT INTO "scenario-result-status" ("Id", "Name") VALUES (1, 'Unknown');
-INSERT INTO "scenario-result-status" ("Id", "Name") VALUES (2, 'Red');
-INSERT INTO "scenario-result-status" ("Id", "Name") VALUES (3, 'Amber');
-INSERT INTO "scenario-result-status" ("Id", "Name") VALUES (4, 'Green');
+-- "scenario"
+INSERT INTO scenario ("ProjectId", "Name", "Status", "ResultStatus", "IsArchived", "DateCreated", "DateModified") VALUES (1, 'Scenario Test', 0, 0, false, current_timestamp, current_timestamp);
+SELECT currval('"scenario_Id_seq"');
