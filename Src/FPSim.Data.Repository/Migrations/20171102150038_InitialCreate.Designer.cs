@@ -12,7 +12,7 @@ using System;
 namespace FPSim.Data.Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20171101142509_InitialCreate")]
+    [Migration("20171102150038_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

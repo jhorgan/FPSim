@@ -58,7 +58,7 @@ namespace FPSim.Data.Repository.Test
         {
             var guid = Guid.NewGuid();
             var sql = $@"INSERT INTO scenario (""ProjectId"", ""Name"", ""Status"", ""ResultStatus"", ""IsArchived"", ""DateCreated"", ""DateModified"") 
-                         VALUES ({projectId}, 'Project {guid}', 0, 0, false, current_timestamp, current_timestamp);
+                         VALUES ({projectId}, 'Scenario {guid}', 0, 0, false, current_timestamp, current_timestamp);
                          SELECT currval('""scenario_Id_seq""');";
 
             return ExecuteInsertCommand(sql);

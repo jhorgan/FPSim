@@ -1,25 +1,13 @@
 ﻿using FPSim.Data.Entity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+
 
 namespace FPSim.Data.Repository
 {
     public class AppDbContext : DbContext
     {
-        public AppDbContext()
-        {
-            
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            // This is only used for during development when using the "dotnet ef" commands.
-            // Db migrations are applied in FPSim.Api.Startup.cs
-
-            optionsBuilder.UseNpgsql(
-                "User ID=postgres;Password=rs0LE$;Host=localhost;Port=5432;Database=fpsim;Pooling=true;");
-            base.OnConfiguring(optionsBuilder);
-        }
-
         public AppDbContext(DbContextOptions options) : base(options)
         {
         }
@@ -47,6 +35,22 @@ namespace FPSim.Data.Repository
             // Scenario
             modelBuilder.Entity<Scenario>().ToTable("scenario", "public");
             modelBuilder.Entity<Scenario>().HasOne(e => e.Project).WithMany(e => e.Scenarios);
+        }
+    }
+
+    /// <inheritdoc />
+    /// <summary>
+    /// This is only used for during development when using the "dotnet ef" commands.
+    /// Db migrations are applied in FPSim.Api.Startup.cs
+    /// </summary>
+    public class AppDbContextFactory : IDesignTimeDbContextFactory<AppDbContext>
+    {
+        public AppDbContext CreateDbContext(string[] args)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
+            optionsBuilder.UseNpgsql("User ID=postgres;Password=rs0LE$;Host=localhost;Port=5432;Database=fpsim;Pooling=true;");
+
+            return new AppDbContext(optionsBuilder.Options);
         }
     }
 }

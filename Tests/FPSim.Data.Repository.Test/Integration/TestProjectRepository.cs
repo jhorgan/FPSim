@@ -1,5 +1,7 @@
+using System;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Newtonsoft.Json;
 
 namespace FPSim.Data.Repository.Test.Integration
 {

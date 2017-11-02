@@ -10,9 +10,9 @@ namespace FPSim.Api
 {
     public class Startup
     {
-        private readonly ILogger _logger;
+        private readonly ILogger<Startup> _logger;
 
-        public Startup(IConfiguration configuration, ILogger logger)
+        public Startup(IConfiguration configuration, ILogger<Startup> logger)
         {
             _logger = logger;
             Configuration = configuration;
@@ -23,9 +23,14 @@ namespace FPSim.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("Default")));
+                options.UseNpgsql(Configuration.GetConnectionString("Default")));
 
-            services.AddMvc();
+            // Add Mvc and configure the Json Serializer to ignore self referencing 
+            // entities i.e. back references in the data model
+            services.AddMvc().AddJsonOptions(
+                options => options.SerializerSettings.ReferenceLoopHandling =
+                    Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using FPSim.Data.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -10,9 +11,9 @@ namespace FPSim.Api.Controllers
     public class ProjectController : Controller
     {
         private readonly AppDbContext _context;
-        private readonly ILogger _logger;
+        private readonly ILogger<ProjectController> _logger;
 
-        public ProjectController(AppDbContext context, ILogger logger)
+        public ProjectController(AppDbContext context, ILogger<ProjectController> logger)
         {
             _context = context;
             _logger = logger;
@@ -29,7 +30,7 @@ namespace FPSim.Api.Controllers
                 using (var unitOfWork = new UnitOfWork(_context))
                 {
                     var projects = unitOfWork.Projects.GetProjectsAndReleatedScenariosForUser(userId);
-                    result = new ObjectResult(projects);
+                    result = new ObjectResult(projects.ToList());
                 }
             }
             catch (Exception e)
