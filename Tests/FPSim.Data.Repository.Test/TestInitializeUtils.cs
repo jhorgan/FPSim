@@ -54,6 +54,16 @@ namespace FPSim.Data.Repository.Test
             return ExecuteInsertCommand(sql);
         }
 
+        public static int CreateTestProject(int applicationId, int userId, string imageOctets)
+        {
+            var guid = Guid.NewGuid();
+            var sql = $@"INSERT INTO project (""ApplicationId"", ""UserId"", ""Name"", ""IsArchived"", ""DateCreated"", ""DateModified"", ""Image"") 
+                         VALUES ({applicationId}, {userId}, 'Project {guid}', false, current_timestamp, current_timestamp, '\x{imageOctets}');
+                         SELECT currval('""project_Id_seq""');";
+
+            return ExecuteInsertCommand(sql);
+        }
+
         public static int CreateTestScenario(int projectId)
         {
             var guid = Guid.NewGuid();

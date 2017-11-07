@@ -1,4 +1,7 @@
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FPSim.Data.Repository.Test.Integration
@@ -7,6 +10,8 @@ namespace FPSim.Data.Repository.Test.Integration
     public class TestProjectUnitOfWork
     {
         private AppDbContext _context;
+
+        public TestContext TestContext { get; set; }
 
         [TestInitialize]
         public void TestInitialize()
@@ -87,6 +92,40 @@ namespace FPSim.Data.Repository.Test.Integration
 
             // Assert
             Assert.AreEqual(2, scenarioCount);
+        }
+
+        [TestMethod]
+        public void WhenProjectHasImageThenGetProjectImageShouldBeNotNull()
+        {
+            // Arrange            
+            var userId = TestInitializeUtils.CreateTestUser();
+            var applicationId = TestInitializeUtils.CreateTestApplication();
+            var imageFilename = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), "Images",
+                "TestProjectImage.png");
+            var imageOctets = ReadImageAsOctectString(imageFilename);
+            var projectId = TestInitializeUtils.CreateTestProject(applicationId, userId, imageOctets);
+
+            // Act
+            byte[] imageAsByteArray;
+            using (var unitOfWork = new UnitOfWork(_context))
+            {
+                imageAsByteArray = unitOfWork.Projects.GetProjectImage(projectId);
+            }
+
+            // Assert
+            Assert.IsNotNull(imageAsByteArray);
+            Assert.IsTrue(imageAsByteArray.Length > 0);
+        }
+
+        private static string ReadImageAsOctectString(string imageFilename)
+        {
+            var buffer = File.ReadAllBytes(imageFilename);
+            var hex = new StringBuilder(buffer.Length * 2);
+            foreach (var b in buffer)
+            {
+                hex.AppendFormat("{0:x2}", b);
+            }
+            return hex.ToString();
         }
     }
 }

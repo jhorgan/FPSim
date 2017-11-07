@@ -25,6 +25,12 @@ namespace FPSim.Api
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("Default")));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAllOrigin",
+                    builder => builder.AllowAnyOrigin());
+            });
+
             // Add Mvc and configure the Json Serializer to ignore self referencing 
             // entities i.e. back references in the data model
             services.AddMvc().AddJsonOptions(
@@ -41,6 +47,8 @@ namespace FPSim.Api
             }
 
             ApplyDatabaseMigrations(app);
+
+            app.UseCors("AllowAllOrigin");
 
             app.UseMvc();
         }

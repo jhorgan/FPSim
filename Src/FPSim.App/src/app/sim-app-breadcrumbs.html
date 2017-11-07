@@ -1,5 +1,9 @@
 <link rel="import" href="/bower_components/px-breadcrumbs/px-breadcrumbs.html" />
 
+<!-- Polyfill required until using Polymer 2.x. Include ahead of iron-ajax -->
+<link rel="import" href="/bower_components/promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+
 <!--
     Style
 -->
@@ -10,9 +14,18 @@
 
         <style include="predix-test-app-styles" is="custom-style"></style>
 
-        <px-breadcrumbs items='[[items]]' selected-route='[[selectedRoute]]'>
+        <px-breadcrumbs id="breadcrumbs" items='[[items]]' selected-route='[[selectedRoute]]'>
         </px-breadcrumbs>
 
+        <iron-ajax 
+            auto
+            url="http://localhost:2362/api/project?userId=3"
+            handle-as="json"
+            on-error="handleError"
+            on-response="handleResponse">
+        </iron-ajax>
+
+        </iron-ajax>
     </template>
     <script>
         Polymer({
@@ -24,7 +37,35 @@
                 selectedRoute: {
                     type: Object
                 }
-            }
+            },
+
+            handleError: function(event, request) {
+                // TODO: handle error for user
+                console.log("Error getting the projects and scenarios. " + event.detail.request.xhr.statusText);
+            },
+
+            handleResponse: function(event, request) {
+                const projects = event.detail.response;
+
+                var projectItems = projects.map(function(project) {
+                    return {
+                        label: project.name,
+                        id: project.id,
+                        children: []
+                    }
+                });
+
+                // Add a "blank" entry if no items are loaded
+                if (projectItems.length == 0) {
+                    projectItems.push({label: "", id:"empty", children: [] });                       
+                }
+
+                this.items = projectItems;
+                this.selectedRoute = [projectItems[0].id]
+
+                // console.log("sim-app-breadcrumbs:");
+                // console.log(projectItems);
+            },
         });
     </script>
 

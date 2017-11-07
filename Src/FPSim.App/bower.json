@@ -11,7 +11,9 @@
     "px-dropdown": "^4.0.7",
     "px-tile": "^1.0.10",
     "px-card": "^1.0.9",
-    "px-tooltip": "^1.0.5"
+    "px-tooltip": "^1.0.5",
+    "iron-ajax": "^2.0.5",
+    "promise-polyfill": "PolymerLabs/promise-polyfill#1"
   },
   "devDependencies": {
     "px-flexbox-design": "^1.0.2",
@@ -22,5 +24,8 @@
     "px-shadows-design": "^1.0.2",
     "px-actionable-design": "^2.0.4",
     "px-buttons-design": "^2.0.5"
+  },
+  "resolutions": {
+    "webcomponentsjs": "^v1.0.2"
   }
 }

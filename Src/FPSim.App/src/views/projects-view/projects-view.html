@@ -18,6 +18,14 @@
         
         <style include="predix-test-app-styles" is="custom-style"></style>
 
+        <iron-ajax 
+            auto
+            url="http://localhost:2362/api/project?userId=3&includeImage=true"
+            handle-as="json"
+            on-error="handleError"
+            on-response="handleResponse">
+        </iron-ajax>
+
         <px-card header-text="Projects" icon="analysis">
             <div class='actions'>
                 <px-icon id="projects-add" icon='px-utl:add'></px-icon>
@@ -30,6 +38,14 @@
                 <px-tooltip for="projects-help" delay="50" tooltip-message="View help on projects" orientation="auto"></px-tooltip>
             </div>
             <div class="flex flex--row flex--left flex--top flex--wrap test">
+                <template is="dom-repeat" items="{{projects}}" as="project">
+                    <project-tile
+                        title="{{project.title}}"
+                        description="{{project.description}}"
+                        image-url="http://localhost:2362/api/project/12/image">
+                    </project-tile>
+                </template>
+<!--
                 <project-tile 
                     title="Bearings FP"
                     description="This is some description about the project"
@@ -40,13 +56,43 @@
                     description="Green Hill Terminal 2.3"
                     image-url="/images/project-tp.png">
                 </project-tile>
+            -->            
             </div>
         </px-card>
 
     </template>
     <script>
         Polymer({
-            is: 'projects-view'
+            is: 'projects-view',
+
+            properties: {
+                projects: {
+                    type: Object
+                }
+            },
+
+            handleError: function(event, request) {
+                // TODO: handle error for user
+                console.log("Error getting the projects for projects view. " + event.detail.request.xhr.statusText);
+            },
+
+            handleResponse: function(event, request) {
+                const projects = event.detail.response;
+
+                var projectItems = projects.map(function(project) {
+                    return {
+                        id: project.id,
+                        title: project.name,
+                        description: project.description,
+                        imageBase64: project.imageBase64
+                    }
+                });
+
+                this.projects = projectItems;
+
+                console.log("project-view:");
+                console.log(projectItems);
+            }
         });
     </script>
 

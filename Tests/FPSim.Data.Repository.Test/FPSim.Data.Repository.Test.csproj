@@ -16,4 +16,14 @@
     <ProjectReference Include="..\..\Src\FPSim.Data.Repository\FPSim.Data.Repository.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Images\TestProjectImage.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

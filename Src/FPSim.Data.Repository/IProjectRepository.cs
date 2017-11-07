@@ -7,5 +7,6 @@ namespace FPSim.Data.Repository
     {
         IEnumerable<Project> GetProjectsForUser(int userId);
         IEnumerable<Project> GetProjectsAndReleatedScenariosForUser(int userId);
+        byte[] GetProjectImage(int projectId);
     }
 }
