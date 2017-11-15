@@ -1,6 +1,6 @@
 {
   "name": "fpsim.app",
-  "dependencies": {
+  "dependencies": {    
     "polymer": "^1.9.0",
     "px-app-nav": "^2.0.12",
     "px-branding-bar": "^1.1.0",
