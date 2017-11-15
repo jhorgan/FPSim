@@ -1,0 +1,32 @@
+<link rel="import" href="/bower_components/px-breadcrumbs/px-breadcrumbs.html" />
+
+<!-- Polyfill required until using Polymer 2.x. Include ahead of iron-ajax -->
+<link rel="import" href="/bower_components/promise-polyfill/promise-polyfill-lite.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+
+<!-- 
+    App
+-->
+<link rel="import" href="/clientapp/app/sim-app-config.html" />
+
+<!--
+    Style
+-->
+<link rel="import" href="../css/fpsim-app-styles.html">
+
+<dom-module id="sim-app-breadcrumbs">
+    <template>
+
+        <style include="fpsim-app-styles" is="custom-style"></style>
+
+        <px-breadcrumbs id="breadcrumbs" items='[[breadcrumbItems]]' selected-route='[[selectedRoute]]'>
+        </px-breadcrumbs>
+
+        <iron-ajax auto url=[[projectsUrl]] handle-as="json" on-error="handleError" on-response="handleResponse">
+        </iron-ajax>
+
+        </iron-ajax>
+    </template>
+    <script src="sim-app-breadcrumbs.js"></script>
+
+</dom-module>

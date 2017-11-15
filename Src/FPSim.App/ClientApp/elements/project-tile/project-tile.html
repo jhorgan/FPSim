@@ -1,0 +1,42 @@
+<link rel="import" href="/bower_components/px-icon-set/px-icon-set.html" />
+<link rel="import" href="/bower_components/px-tile/px-tile.html" />
+<link rel="import" href="/bower_components/px-tooltip/px-tooltip.html" />
+<!--
+    Style
+-->
+<link rel="import" href="../../css/fpsim-app-styles.html">
+
+<dom-module id="project-tile">
+    <template>
+
+        <style include="fpsim-app-styles" is="custom-style"></style>
+
+        <px-tile title="{{title}}" description="{{description}}" hoverable>
+            <div class="flex flex--center" slot="thumbnail">
+                <img src="{{imageUrl}}" />
+            </div>
+            <div slot="footer">
+                <span id="project-link-scenarios" class="project-command">
+                                    <px-icon icon="px-utl:unlink"></px-icon>                                
+                                </span>
+                <px-tooltip for="project-link-scenarios" orientation="auto" tooltip-message="Link Scenarios"></px-tooltip>
+                <span id="project-analytics" class="project-command">
+                                    <px-icon icon="px-doc:chart"></px-icon>
+                                    <px-tooltip for="project-analytics" orientation="auto" tooltip-message="Project Analytics"></px-tooltip>
+                                </span>
+                <span id="project-settings" class="project-command">
+                                    <px-icon icon="px-utl:app-settings"></px-icon>                                
+                                </span>
+                <px-tooltip for="project-settings" orientation="auto" tooltip-message="Project Settings"></px-tooltip>
+                <span id="project-view-scenarios" class="project-command">
+                                    <span>View Scenarios</span>
+                <px-icon icon="px-utl:chevron-right"></px-icon>
+                </span>
+                <px-tooltip for="project-view-scenarios" orientation="auto" tooltip-message="View Project Scenarios"></px-tooltip>
+            </div>
+        </px-tile>
+
+    </template>
+    <script src="projects-tile.js"></script>
+
+</dom-module>

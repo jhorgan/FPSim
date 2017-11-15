@@ -24,6 +24,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPSim.Data.Entity", "Src\FP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPSim.Data.Repository", "Src\FPSim.Data.Repository\FPSim.Data.Repository.csproj", "{D094D0EB-D3A2-42CC-B280-5553C8B1FA57}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPSim.App", "Src\FPSim.App\FPSim.App.csproj", "{E2A16808-ACD3-487F-BD15-5258043BD873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,6 +52,10 @@ Global
 		{D094D0EB-D3A2-42CC-B280-5553C8B1FA57}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D094D0EB-D3A2-42CC-B280-5553C8B1FA57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D094D0EB-D3A2-42CC-B280-5553C8B1FA57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2A16808-ACD3-487F-BD15-5258043BD873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2A16808-ACD3-487F-BD15-5258043BD873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2A16808-ACD3-487F-BD15-5258043BD873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2A16808-ACD3-487F-BD15-5258043BD873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -61,6 +67,7 @@ Global
 		{BB8784B8-7FE0-45CE-90CB-0B2B624A9F9B} = {D2C632F2-40FD-467F-8E6C-7FC824865060}
 		{5C480DE7-99CC-493E-8166-F3F98408D7C6} = {484ED59D-9ADA-4077-A197-AEF88FCAF163}
 		{D094D0EB-D3A2-42CC-B280-5553C8B1FA57} = {484ED59D-9ADA-4077-A197-AEF88FCAF163}
+		{E2A16808-ACD3-487F-BD15-5258043BD873} = {484ED59D-9ADA-4077-A197-AEF88FCAF163}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {0241EC1C-4815-4944-859A-39CCDBE73CD9}

@@ -1,0 +1,97 @@
+<link rel="import" href="/bower_components/px-icon-set/px-icon-set.html" />
+<link rel="import" href="/bower_components/px-tile/px-tile.html" />
+<link rel="import" href="/bower_components/px-tooltip/px-tooltip.html" />
+<link rel="import" href="/bower_components/px-card/px-card.html" />
+
+<!-- 
+    App
+-->
+<link rel="import" href="/src/app/sim-app-config.html" />
+
+<!--
+    Style
+-->
+<link rel="import" href="/css/predix-test-app-styles.html">
+
+<!--
+    Elements
+-->
+<link rel="import" href="/src/elements/project-tile/project-tile.html">
+
+<dom-module id="projects-view">
+    <template>
+        
+        <style include="predix-test-app-styles" is="custom-style"></style>
+
+        <iron-ajax 
+            auto
+            url="{{projectsUrl}}"
+            handle-as="json"
+            on-error="handleError"
+            on-response="handleResponse">
+        </iron-ajax>
+
+        <px-card header-text="Projects" icon="analysis">
+            <div class='actions'>
+                <px-icon id="projects-add" icon='px-utl:add'></px-icon>
+                <px-icon id="projects-view-tile" icon='px-nav:grid-view'></px-icon>
+                <px-icon id="projects-view-list" icon='px-nav:list-view'></px-icon>
+                <px-icon id="projects-help" icon='px-utl:help'></px-icon>
+                <px-tooltip for="projects-add" delay="50" tooltip-message="Add new project" orientation="bottom"></px-tooltip>
+                <px-tooltip for="projects-view-tile" delay="50" tooltip-message="Tile view" orientation="bottom"></px-tooltip>
+                <px-tooltip for="projects-view-list" delay="50" tooltip-message="List view" orientation="bottom"></px-tooltip>
+                <px-tooltip for="projects-help" delay="50" tooltip-message="View help on projects" orientation="auto"></px-tooltip>
+            </div>
+            <div class="flex flex--row flex--left flex--top flex--wrap test">
+                <template is="dom-repeat" items="{{projects}}" as="project">
+                    <project-tile
+                        title="{{project.title}}"
+                        description="{{project.description}}"
+                        image-url="{{project.imageUrl}}">
+                    </project-tile>
+                </template>
+            </div>            
+        </px-card>
+
+    </template>
+    <script>
+        Polymer({
+            is: 'projects-view',
+
+            properties: {
+                projectsUrl: {
+                    type: String,
+                    value: function() {
+                        return [appConfig.getApiUrl(), "/api/project", "?userId=", appConfig.getCurrentUserId()].join("")
+                    }
+                },                
+                projects: {
+                    type: Object
+                }
+            },
+
+            handleError: function(event, request) {
+                // TODO: handle error for user
+                console.log("Error getting the projects for projects view. " + event.detail.request.xhr.statusText);
+            },
+
+            handleResponse: function(event, request) {
+                const projects = event.detail.response;
+
+                // Adapt the project items from the Api call to data items 
+                // that are rendered in this view
+                var projectItems = projects.map(function(project) {
+                    return {
+                        id: project.id,
+                        title: project.name,
+                        description: project.description,
+                        imageUrl: [appConfig.getApiUrl(), "/api/project/", project.id, '/image'].join("")
+                    }
+                });
+
+                this.projects = projectItems;
+            }
+        });
+    </script>
+
+</dom-module>
