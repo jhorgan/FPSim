@@ -6,12 +6,16 @@
             projectsUrl: {
                 type: String,
                 value: function () {
-                    return [appConfig.getApiUrl(), "/api/project", "?userId=", appConfig.getCurrentUserId()].join("")
+                    return [appConfig.getApiUrl(), "/api/project/user/", appConfig.getCurrentUserId()].join("")
                 }
             },
             projects: {
                 type: Object
             }
+        },
+        
+        handleAdd: function (event) {
+            this.$.newProjectPanel.open();
         },
 
         handleError: function (event, request) {

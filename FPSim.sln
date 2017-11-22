@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27004.2005
+VisualStudioVersion = 15.0.27004.2008
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FPSim.Database", "FPSim.Database", "{44AC61CE-D4AE-45A4-B284-572865AF0AEA}"
 	ProjectSection(SolutionItems) = preProject
@@ -24,7 +24,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPSim.Data.Entity", "Src\FP
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPSim.Data.Repository", "Src\FPSim.Data.Repository\FPSim.Data.Repository.csproj", "{D094D0EB-D3A2-42CC-B280-5553C8B1FA57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FPSim.App", "Src\FPSim.App\FPSim.App.csproj", "{E2A16808-ACD3-487F-BD15-5258043BD873}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FPSim.App", "Src\FPSim.App\FPSim.App.csproj", "{E2A16808-ACD3-487F-BD15-5258043BD873}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

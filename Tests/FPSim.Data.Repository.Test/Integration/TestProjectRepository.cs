@@ -1,7 +1,9 @@
+using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using FPSim.Data.Entity;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace FPSim.Data.Repository.Test.Integration
@@ -115,6 +117,35 @@ namespace FPSim.Data.Repository.Test.Integration
             // Assert
             Assert.IsNotNull(imageAsByteArray);
             Assert.IsTrue(imageAsByteArray.Length > 0);
+        }
+
+        [TestMethod]
+        public void WhenProjectIsSavedThenItShouldBePersisted()
+        {
+            // Arrange            
+            var userId = TestInitializeUtils.CreateTestUser();
+            var applicationId = TestInitializeUtils.CreateTestApplication();
+
+            var project = new Project
+            {
+                Name = "Test Project " + Guid.NewGuid(),
+                Description = "Test Project Description",
+                UserId = userId,
+                ApplicationId = applicationId,
+                DateCreated = DateTime.Now,
+                DateModified = DateTime.Now
+            };
+
+            // Act
+            using (var unitOfWork = new UnitOfWork(_context))
+            {
+                unitOfWork.Projects.Add(project);
+                unitOfWork.Complete();
+            }
+
+            // Assert
+            Assert.IsTrue(project.Id > 0);
+
         }
 
         private static string ReadImageAsOctectString(string imageFilename)

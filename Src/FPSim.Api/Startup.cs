@@ -1,4 +1,7 @@
-﻿using FPSim.Data.Repository;
+﻿using System;
+using System.Linq;
+using FPSim.Data.Entity;
+using FPSim.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,7 +31,9 @@ namespace FPSim.Api
             services.AddCors(options =>
             {
                 options.AddPolicy("AllowAllOrigin",
-                    builder => builder.AllowAnyOrigin());
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyHeader()
+                    .AllowAnyMethod());
             });
 
             // Add Mvc and configure the Json Serializer to ignore self referencing 
@@ -47,6 +52,7 @@ namespace FPSim.Api
             }
 
             ApplyDatabaseMigrations(app);
+            ApplyDatabaseDefaults(app);
 
             app.UseCors("AllowAllOrigin");
 
@@ -64,6 +70,50 @@ namespace FPSim.Api
             }
 
             _logger.LogInformation("Applied database migrations complete successfully");
+        }
+
+        private void ApplyDatabaseDefaults(IApplicationBuilder app)
+        {
+            try
+            {
+                using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+                {
+                    var context = serviceScope.ServiceProvider.GetRequiredService<AppDbContext>();
+
+                    using (var unitOfWork = new UnitOfWork(context))
+                    {
+                        // Create initial application if required
+                        var applicationRepository = unitOfWork.Applications;
+                        if (!applicationRepository.GetAll().Any())
+                        {
+                            applicationRepository.Add(new Application()
+                            {
+                                Name = "FP Sim Application",
+                                IsArchived = false,
+                                DateCreated = DateTime.Now,
+                                DateModified = DateTime.Now
+                            });
+                        }
+
+                        // Create initial user if required
+                        var userRepository = unitOfWork.Users;
+                        if (!userRepository.GetAll().Any())
+                        {
+                            userRepository.Add(new User()
+                            {
+                                Name = "Test User",
+                                Email = "testuser@lanner.com"
+                            });
+                        }
+                        unitOfWork.Complete();
+                    }
+
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error applying database defaults.");
+            }
         }
     }
 }

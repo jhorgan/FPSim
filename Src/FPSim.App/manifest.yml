@@ -1,0 +1,11 @@
+---
+applications:
+  - name: fp-sim-app
+    buildpack: https://github.com/cloudfoundry/dotnet-core-buildpack.git
+    memory: 128M
+    env:
+        DOTNET_CLI_TELEMETRY_OPTOUT: 1
+        DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+        FP-SIM_USERID: 1
+        FP-SIM_APPLICATIONID: 1
+        FP_SIM_API_URL: https://fp-sim-api.run.aws-usw02-pr.ice.predix.io

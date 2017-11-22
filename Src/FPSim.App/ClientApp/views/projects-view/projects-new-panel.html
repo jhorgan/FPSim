@@ -1,0 +1,89 @@
+<link rel="import" href="/bower_components/px-panel/px-panel.html" />
+<link rel="import" href="/bower_components/px-file-upload/px-file-upload.html" />
+<link rel="import" href="/bower_components/px-spinner/px-spinner.html" />
+<link rel="import" href="/bower_components/paper-input/paper-input.html" />
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html" />
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
+
+<!-- 
+    App
+-->
+<link rel="import" href="/clientapp/app/sim-app-config.html" />
+
+<!--
+    Style
+-->
+<link rel="import" href="../../css/fpsim-app-styles.html">
+
+<dom-module id="projects-new-panel">
+    <template>
+        <style>
+            .main-container {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                min-height: 100%;
+            }
+
+            .command-container-bottom {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-end
+            }
+
+            .command-container-top {
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+            }
+
+            .command-border {
+                border-top: 1px solid #B6C3CC;
+                padding: 1rem;
+            }
+        </style>
+
+        <style include="fpsim-app-styles" is="custom-style"></style>
+
+        <!-- Post the new project to persist it -->
+        <iron-ajax id="postProject" method="post" url="[[postUrl]]" handle-as="json" content-type="application/json" on-error="handleError"
+            on-response="handleResponse" , loading="{{isPosting}}">
+        </iron-ajax>
+
+        <!-- Panel for project name editting, needs to be wrapped in a div or some other container -->
+        <div>
+            <px-panel id="panel" fixed position="right" px-panel-offset--left="2rem">
+                <div slot="content" class="main-container">
+                    <div style="padding:2rem">
+                        <div class="command-container-top">
+                            <px-icon class="actionable actionable--action" icon="px-nav:close" on-tap="handleCancel"></px-icon>
+                            <px-spinner size="15" style="padding-left:20px" finished$="{{!isPosting}}"></px-spinner>
+                        </div>
+                        <div style="padding-top:1rem">
+                            <span class="heading--section">New Project</span>
+                        </div>
+                        <div>
+                            <paper-input id="projectName" label="Name" value="{{projectName}}" disabled$="{{isPosting}}" placeholder="New project" required
+                                auto-validate error-message="Project name is required"></paper-input>
+                        </div>
+                        <div>
+                            <paper-textarea rows="7" label="Description" value={{projectDescription}} disabled$="{{isPosting}}" placeholder="Project description"></paper-textarea>
+                        </div>
+                        <div>
+                            <px-file-upload message="Image" multiple accept=".png,image/png" disabled$="{{isPosting}}"></px-file-upload>
+                            <img src="http://localhost:2362/api/project/12/image" />
+                        </div>
+                    </div>
+                    <div class="command-container-bottom command-border">
+                        <paper-button class="btn" on-tap="handleCancel" disabled$="{{isPosting}}">Cancel</paper-button>
+                        <paper-button class="btn btn--call-to-action" on-tap="handleOK" disabled$="{{isPosting}}">OK</paper-button>
+                    </div>
+                </div>
+            </px-panel>
+            <paper-toast id="toastMessage"></paper-toast>
+        </div>
+    </template>
+    <script src="projects-new-panel.js"></script>
+</dom-module>

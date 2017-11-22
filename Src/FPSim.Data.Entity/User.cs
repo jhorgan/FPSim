@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FPSim.Data.Entity
+﻿namespace FPSim.Data.Entity
 {
     public class User
     {

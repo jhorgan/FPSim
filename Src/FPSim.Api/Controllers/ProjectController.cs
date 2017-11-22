@@ -1,7 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using FPSim.Data.Entity;
 using FPSim.Data.Repository;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -13,15 +15,40 @@ namespace FPSim.Api.Controllers
     {
         private readonly AppDbContext _context;
         private readonly ILogger<ProjectController> _logger;
+        private readonly IHostingEnvironment _environment;
 
-        public ProjectController(AppDbContext context, ILogger<ProjectController> logger)
+        public ProjectController(AppDbContext context, ILogger<ProjectController> logger, IHostingEnvironment environment)
         {
             _context = context;
             _logger = logger;
+            _environment = environment;
         }
 
-        [HttpGet]
-        public IActionResult Get(int userId)
+        [HttpGet("{projectId}")]
+        public IActionResult Get(int projectId)
+        {
+            IActionResult result;
+
+            _logger.LogDebug("Fetching Project {projectId}...", projectId);
+            try
+            {
+                using (var unitOfWork = new UnitOfWork(_context))
+                {
+                    var project = unitOfWork.Projects.Get(projectId);
+                    result = new ObjectResult(project);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, "Error fetching Project {projectId}", projectId);
+                result = NotFound(e.Message);
+            }
+
+            return result;
+        }
+
+        [HttpGet("user/{userId}")]
+        public IActionResult GetForUser(int userId)
         {
             IActionResult result;
 
@@ -53,7 +80,7 @@ namespace FPSim.Api.Controllers
             {
                 using (var unitOfWork = new UnitOfWork(_context))
                 {
-                    var imageByteArray = unitOfWork.Projects.GetProjectImage(projectId);
+                    var imageByteArray = unitOfWork.Projects.GetProjectImage(projectId) ?? GetDefaultProjectImage();
                     var stream = new MemoryStream(imageByteArray);
 
                     // Note: stream will be disposed by FileStreamResult 
@@ -66,6 +93,51 @@ namespace FPSim.Api.Controllers
                 result = NotFound(e.Message);
             }
 
+            return result;
+        }
+
+        private byte[] GetDefaultProjectImage()
+        {
+            return System.IO.File.ReadAllBytes(Path.Combine(_environment.WebRootPath, "images", "default-project.png"));
+        }
+
+        [HttpPost]
+        public IActionResult Post([FromBody] Project project)
+        {
+            IActionResult result;
+
+            if (project != null)
+            {
+                _logger.LogDebug("Creating a new Project \"{name}\"...", project.Name);
+                try
+                {
+                    var newProject = new Project()
+                    {
+                        Name = project.Name,
+                        Description = project.Description,
+                        UserId = project.UserId,
+                        ApplicationId = project.ApplicationId,
+                        DateModified = DateTime.Now,
+                        DateCreated = DateTime.Now
+                    };
+                    using (var unitOfWork = new UnitOfWork(_context))
+                    {
+                        unitOfWork.Projects.Add(newProject);
+                        unitOfWork.Complete();
+
+                        result = CreatedAtAction("Get", "Project", new {projectId = newProject.Id}, project);                        
+                    }
+                }
+                catch (Exception e)
+                {
+                    _logger.LogError(e, "Error creating a new Project, name {name}", project.Name);
+                    result = BadRequest(e.Message);
+                }
+            }
+            else
+            {
+                result = BadRequest();
+            }
             return result;
         }
     }

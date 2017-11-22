@@ -1,12 +1,36 @@
 <script>
     var appConfig = {
 
-        getApiUrl : function() {
-            return "http://localhost:2362";
+        getApiUrl: function () {
+            return getCookie("FP-SIM_URL");
         },
 
-        getCurrentUserId : function() {
-            return 3;
+        getCurrentAppId: function () {
+            return getCookie("FP-SIM_APPLICATIONID");
+        },
+
+        getCurrentUserId: function () {
+            return getCookie("FP-SIM_USERID");
         }
+    }
+
+    function getCookie(cname) {
+        const name = cname + "=";
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+
+        console.log(`Cookie not present. Cookie:${cname}`);
+        console.log(`Cookies: ${decodeURIComponent(document.cookie)}`);
+
+        return "";
     }
 </script>

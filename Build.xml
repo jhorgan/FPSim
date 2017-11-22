@@ -5,6 +5,7 @@
   
   <Target Name="Build">
     <MSBuild Projects="Src\FPSim.Api/FPSim.Api.csproj" Properties="Configuration=$(Configuration);DeployOnBuild=true"/>
+    <MSBuild Projects="Src\FPSim.App/FPSim.App.csproj" Properties="Configuration=$(Configuration);DeployOnBuild=true"/>
   </Target>
 
   <Target Name="Test">
@@ -13,14 +14,24 @@
 
   <Target Name="Package">
     <ItemGroup>
-      <FPSimApiFiles Include="Src\FPSim.Api\bin\$(Configuration)\netcoreapp2.0\publish\*.*" Exclude="*.pdb" />
+      <FPSimApiFiles Include="Src\FPSim.Api\bin\$(Configuration)\netcoreapp2.0\publish\**\*.*" Exclude="*.pdb" />
+      <FPSimAppFiles Include="Src\FPSim.App\bin\$(Configuration)\netcoreapp2.0\publish\**\*.*" Exclude="*.pdb" />
+      <FPSimAppClientAppFiles Include="Src\FPSim.App\ClientApp\**\*.*" />
+      <FPSimAppBowerFiles Include="Src\FPSim.App\bower_components\**\*.*" />
     </ItemGroup>
     
     <!-- FPSim.Api -->
     <RemoveDir ContinueOnError="true" Directories="Disk Images\FPSim.Api" />
+    <RemoveDir ContinueOnError="true" Directories="Disk Images\FPSim.App" />
+
     <MakeDir Directories="Disk Images\FPSim.Api" />
+    <MakeDir Directories="Disk Images\FPSim.App" />
+
     <Copy SourceFiles="@(FPSimApiFiles)" DestinationFolder="Disk Images\FPSim.Api\%(RecursiveDir)" />
-    
+    <Copy SourceFiles="@(FPSimAppFiles)" DestinationFolder="Disk Images\FPSim.App\%(RecursiveDir)" />
+    <Copy SourceFiles="@(FPSimAppClientAppFiles)" DestinationFolder="Disk Images\FPSim.App\ClientApp\%(RecursiveDir)" />
+    <Copy SourceFiles="@(FPSimAppBowerFiles)" DestinationFolder="Disk Images\FPSim.App\bower_components\%(RecursiveDir)" />
+
   </Target>
 
   <Target Name="All" DependsOnTargets="Build;Test;Package">
