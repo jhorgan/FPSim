@@ -1,0 +1,30 @@
+<script>
+    var ActionTypes;
+    // ReSharper disable once InconsistentNaming
+    (function (ActionTypes) {
+
+        const STORE_PROJECTS = "STORE_PROJECTS";
+        const ADD_PROJECT = "ADD_PROJECT";
+
+        function storeProjects(projects) {
+            return {
+                type: STORE_PROJECTS,
+                projects: projects
+            };
+        }
+
+        function addProject(project) {
+            return {
+                type: ADD_PROJECT,
+                project: project
+            };
+        }
+
+        ActionTypes.STORE_PROJECTS = STORE_PROJECTS;
+        ActionTypes.ADD_PROJECT = ADD_PROJECT;
+        
+        ActionTypes.storeProjects = storeProjects;
+        ActionTypes.addProject = addProject;
+
+    })(ActionTypes || (ActionTypes = {}));
+</script>

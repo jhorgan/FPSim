@@ -37,13 +37,18 @@ namespace FPSim.App
                 FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "bower_components")),
                 RequestPath = new PathString("/bower_components")
             });
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(env.ContentRootPath, "node_modules")),
+                RequestPath = new PathString("/node_modules")
+            });
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseBrowserLink();
             }
-            
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");

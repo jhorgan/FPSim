@@ -3,6 +3,7 @@
   "author": "Lanner",
   "repository": {},
   "dependencies": {
+    "redux": "^3.7.2"
   },
   "devDependencies": {
     "bower": "^1.8.2",

@@ -15,6 +15,11 @@
 <link rel="import" href="/clientapp/views/projects-view/projects-view.html" />
 <link rel="import" href="/clientapp/app/sim-app-breadcrumbs.html" />
 
+<!-- 
+    Redux store
+-->
+<link rel="import" href="/clientapp/store/reducers/reducers.html" />
+
 <!--
     Load theme files, apply default theme.
 -->
@@ -75,11 +80,5 @@
             <projects-view></projects-view>
         </div>
     </template>
-
-    <script>
-        Polymer({
-            is: 'sim-app'
-        });
-    </script>
-
+    <script src="sim-app.js"></script>
 </dom-module>

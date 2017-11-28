@@ -2,6 +2,7 @@
   "name": "fpsim.app",
   "dependencies": {
     "polymer": "^1.9.0",
+    "polymer-redux": "^0.4.2",
     "px-app-nav": "^2.0.12",
     "px-branding-bar": "^1.1.0",
     "px-icon-set": "^2.1.1",

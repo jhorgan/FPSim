@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <TypeScriptToolsVersion>Latest</TypeScriptToolsVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -21,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="2.6.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" />
   </ItemGroup>
 
@@ -30,6 +32,7 @@
 
   <ItemGroup>
     <Folder Include="ClientApp\elements\" />
+    <Folder Include="ClientApp\store\actions\" />
     <Folder Include="ClientApp\views\" />
   </ItemGroup>
 

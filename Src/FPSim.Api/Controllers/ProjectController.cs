@@ -125,7 +125,7 @@ namespace FPSim.Api.Controllers
                         unitOfWork.Projects.Add(newProject);
                         unitOfWork.Complete();
 
-                        result = CreatedAtAction("Get", "Project", new {projectId = newProject.Id}, project);                        
+                        result = CreatedAtAction("Get", "Project", new {projectId = newProject.Id}, newProject);                        
                     }
                 }
                 catch (Exception e)

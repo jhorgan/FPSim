@@ -2,6 +2,8 @@
     Polymer({
         is: 'projects-view',
 
+        behaviors: [Reducers.ReduxBehavior],
+
         properties: {
             projectsUrl: {
                 type: String,
@@ -10,17 +12,24 @@
                 }
             },
             projects: {
-                type: Object
+                type: Object,
+                statePath: "projects"
+            },
+
+            fetching: {
+                type: Boolean,
+                statePath: "isFetching"
             }
         },
-        
+
         handleAdd: function (event) {
             this.$.newProjectPanel.open();
         },
 
         handleError: function (event, request) {
-            // TODO: handle error for user
-            console.log("Error getting the projects for projects view. " + event.detail.request.xhr.statusText);
+            const message = "Error getting the projects for projects view. " + event.detail.request.xhr.statusText;
+
+            this._displayToast(message, true);
         },
 
         handleResponse: function (event, request) {
@@ -37,7 +46,20 @@
                 }
             });
 
-            this.projects = projectItems;
+            this.dispatch(ActionTypes.storeProjects(projectItems));
+        },
+
+        _displayToast: function (message, isError) {
+
+            if (typeof isError !== 'undefined' && isError) {
+                this.$.toastMessage.duration = 5000;
+                this.$.toastMessage.updateStyles({ '--paper-toast-background-color': '#a90f0f' });
+
+                console.error(message);
+            }
+
+            this.$.toastMessage.text = message;
+            this.$.toastMessage.open();
         }
     });
 })();

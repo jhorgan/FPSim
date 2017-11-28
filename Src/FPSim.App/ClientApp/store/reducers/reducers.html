@@ -1,0 +1,36 @@
+﻿<script src="/node_modules/redux/dist/redux.js"></script>
+<link rel="import" href="/bower_components/polymer-redux/polymer-redux.html">
+<link rel="import" href="/clientapp/store/actions/project-actions.html">
+
+<script>
+    var Reducers;
+    // ReSharper disable once InconsistentNaming
+    (function (Reducers) {
+
+        const initialState = {
+            projects: [],
+            isFetching: false
+        };
+
+        const projectReducer = function (state = initialState, action) {
+            switch (action.type) {
+                case ActionTypes.STORE_PROJECTS:
+                    {
+                        const projects = action.projects.slice(0);
+                        return Object.assign({}, state, { projects: projects });
+                    }
+                    case ActionTypes.ADD_PROJECT:
+                    {
+                        const projects = state.projects.slice(0);
+                        projects.push(action.project);
+                        return Object.assign({}, state, { projects: projects });
+                    }
+            }
+            return state;
+        }
+
+        const store = Redux.createStore(projectReducer);
+        Reducers.ReduxBehavior = PolymerRedux(store);
+
+    })(Reducers || (Reducers = {}));
+</script>
