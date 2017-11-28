@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using FPSim.Api.Model;
 using FPSim.Data.Entity;
 using FPSim.Data.Repository;
 using Microsoft.AspNetCore.Hosting;
@@ -102,7 +103,7 @@ namespace FPSim.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] Project project)
+        public IActionResult Post([FromBody] ProjectDto project)
         {
             IActionResult result;
 
@@ -116,10 +117,12 @@ namespace FPSim.Api.Controllers
                         Name = project.Name,
                         Description = project.Description,
                         UserId = project.UserId,
+                        Image = ImageFromBase64String(project.Image),
                         ApplicationId = project.ApplicationId,
                         DateModified = DateTime.Now,
                         DateCreated = DateTime.Now
                     };
+
                     using (var unitOfWork = new UnitOfWork(_context))
                     {
                         unitOfWork.Projects.Add(newProject);
@@ -138,6 +141,19 @@ namespace FPSim.Api.Controllers
             {
                 result = BadRequest();
             }
+            return result;
+        }
+
+        private static byte[] ImageFromBase64String(string base64String)
+        {
+            // A default is image used when result = null
+            byte[] result = null;
+
+            if (!string.IsNullOrEmpty(base64String))
+            {
+                result = Convert.FromBase64String(base64String);
+            }
+
             return result;
         }
     }

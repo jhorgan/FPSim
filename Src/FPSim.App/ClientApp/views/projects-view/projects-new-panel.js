@@ -24,16 +24,55 @@
             this.$.panel.close();
         },
 
+        handleFileChanged: function () {
+            // TODO: not working
+            var that = this;
+            if (this.$.fileUpload.files.length > 0) {
+                var reader = new FileReader();
+                reader.onload = function () {
+                    that.$.projectImage.src = reader.result;
+                }
+                reader.readAsDataURL(this.$.fileUpload.files[0]);
+            }
+            else {
+                this.$.projectImage.src = null;
+            }
+        },
+
         handleOK: function (event) {
 
             if (this.$.projectName.validate()) {
-                this.$.postProject.body = {
-                    name: this.projectName,
-                    description: this.projectDescription,
-                    applicationId: appConfig.getCurrentAppId(),
-                    userId: appConfig.getCurrentUserId()
-                };
-                this.$.postProject.generateRequest();
+                var that = this;
+
+                // saveFunction invoked when the image is loaded (assuming one was entered)
+                var saveFunction = function (arrayBuffer) {
+                    that.$.postProject.body = {
+                        name: that.projectName,
+                        description: that.projectDescription,
+                        applicationId: appConfig.getCurrentAppId(),
+                        userId: appConfig.getCurrentUserId(),
+                        image: Utils.base64ArrayBuffer(arrayBuffer)
+                    };
+                    that.$.postProject.generateRequest();
+                }
+
+                var reader = new FileReader();
+                reader.onloadend = saveFunction;
+                reader.onerror = saveFunction;
+
+                // If a file was selected, attempt to load it
+                if (this.$.fileUpload.files.length > 0) {
+                    reader.onloadend = function () {
+                        saveFunction(reader.result);
+                    }
+                    reader.onerror = function () {
+                        saveFunction();
+                    }
+                    reader.readAsArrayBuffer(this.$.fileUpload.files[0]);
+                }
+                else {
+                    saveFunction();
+                }
             }
         },
 
@@ -66,7 +105,7 @@
             this.$.panel.open();
         },
 
-        _clearFields: function() {
+        _clearFields: function () {
             this.projectName = "";
             this.projectDescription = "";
         },
