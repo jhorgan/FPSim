@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using AutoMapper;
 using FPSim.Data.Entity;
 using FPSim.Data.Repository;
 using Microsoft.AspNetCore.Builder;
@@ -42,6 +43,9 @@ namespace FPSim.Api
                 options => options.SerializerSettings.ReferenceLoopHandling =
                     Newtonsoft.Json.ReferenceLoopHandling.Ignore
             );
+
+            // Auto mapper services - maps between dto's to EF objects
+            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -56,7 +60,7 @@ namespace FPSim.Api
 
             app.UseCors("AllowAllOrigin");
 
-            app.UseMvc();
+            app.UseMvc();            
         }
 
         private void ApplyDatabaseMigrations(IApplicationBuilder app)

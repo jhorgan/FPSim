@@ -5,6 +5,11 @@ namespace FPSim.Data.Entity
 {
     public class Project
     {
+        public Project()
+        {
+            DateModified = DateTime.Now;    
+        }
+
         public int Id { get; set; }
         public int ApplicationId { get; set; }
         public int UserId { get; set; }
