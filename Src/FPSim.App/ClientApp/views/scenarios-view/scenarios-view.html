@@ -1,0 +1,62 @@
+<link rel="import" href="/bower_components/px-icon-set/px-icon-set.html" />
+<link rel="import" href="/bower_components/px-tile/px-tile.html" />
+<link rel="import" href="/bower_components/px-tooltip/px-tooltip.html" />
+<link rel="import" href="/bower_components/px-card/px-card.html" />
+
+<!-- 
+    App
+-->
+<link rel="import" href="/clientapp/app/sim-app-config.html" />
+
+<!-- 
+    Redux store
+-->
+<link rel="import" href="/clientapp/store/reducers/reducers.html" />
+
+<!--
+    Style
+-->
+<link rel="import" href="../../css/fpsim-app-styles.html">
+
+<!--
+    Elements
+-->
+<link rel="import" href="/clientapp/elements/scenario-tile/scenario-tile.html">
+<!-- <link rel="import" href="/clientapp/views/scenarios-view/scenarios-new-panel.html"> -->
+
+<dom-module id="projects-view">
+    <template>
+
+        <style include="fpsim-app-styles" is="custom-style"></style>
+
+        <!-- Fetch the scenarios to display -->
+        <iron-ajax auto url="[[scenariosUrl]]" handle-as="json" on-error="handleError" on-response="handleResponse">
+        </iron-ajax>
+
+        <!-- A card conatins all project items -->
+        <px-card header-text="Projects" icon="analysis">
+            <div class='actions'>
+                <px-icon id="scenarios-add" icon='px-utl:add' on-tap="handleAdd"></px-icon>
+                <px-icon id="scenarios-view-tile" icon='px-nav:grid-view'></px-icon>
+                <px-icon id="scenarios-view-list" icon='px-nav:list-view'></px-icon>
+                <px-icon id="scenarios-help" icon='px-utl:help'></px-icon>
+                <px-tooltip for="scenarios-add" delay="50" tooltip-message="Add new scenario" orientation="bottom"></px-tooltip>
+                <px-tooltip for="scenarios-view-tile" delay="50" tooltip-message="Tile view" orientation="bottom"></px-tooltip>
+                <px-tooltip for="scenarios-view-list" delay="50" tooltip-message="List view" orientation="bottom"></px-tooltip>
+                <px-tooltip for="scenarios-help" delay="50" tooltip-message="View help on scenarios" orientation="auto"></px-tooltip>
+            </div>
+            <div class="flex flex--row flex--left flex--top flex--wrap test">
+                <!-- Create a tile for each project item -->
+                <template is="dom-repeat" items="{{scenarios}}" as="scenario">
+                    <scenario-tile title="{{scenario.title}}" description="{{scenario.description}}" image-url="{{scenario.imageUrl}}">
+                    </scenario-tile>
+                </template>
+            </div>
+        </px-card>
+
+        <!-- <projects-new-panel id="newProjectPanel"></projects-new-panel> -->
+
+    </template>
+    <script src="scenarios-view.js"></script>
+
+</dom-module>
