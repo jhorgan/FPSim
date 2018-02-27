@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 namespace FPSim.Api.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Project")]
+    [Route("api/user/{userId}/project")]
     public class ProjectController : Controller
     {
         private readonly AppDbContext _context;
@@ -54,12 +54,12 @@ namespace FPSim.Api.Controllers
             return result;
         }
 
-        [HttpGet("user/{userId}")]
+        [HttpGet]
         public IActionResult GetForUser(int userId)
         {
             IActionResult result;
 
-            _logger.LogDebug("Fetching Project for user {userId}...", userId);
+            _logger.LogDebug("Fetching Projects for user {userId}...", userId);
             try
             {
                 using (var unitOfWork = new UnitOfWork(_context))

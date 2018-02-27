@@ -13,6 +13,8 @@ namespace FPSim.Api.Automapper
             CreateMap<ProjectDto, Project>()
                 .ForMember(destination => destination.Image,
                            options => options.ResolveUsing(resolver => ImageFromBase64String(resolver.Image)));
+
+            CreateMap<Scenario, ScenarioDto>();
         }
 
         private static byte[] ImageFromBase64String(string base64String)

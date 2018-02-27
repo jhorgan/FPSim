@@ -10,7 +10,7 @@
             postUrl: {
                 type: String,
                 value: function () {
-                    return [appConfig.getApiUrl(), "/api/project"].join("")
+                    return [appConfig.getApiUrl(), "/api/user/", appConfig.getCurrentUserId(), "/project"].join("")
                 }
             },
             isPosting: {
@@ -25,6 +25,7 @@
         },
 
         handleFileChanged: function () {
+            console.log("handleFileChanged");
             // TODO: not working
             var that = this;
             if (this.$.fileUpload.files.length > 0) {
@@ -91,7 +92,7 @@
                 id: newProject.id,
                 title: newProject.name,
                 description: newProject.description,
-                imageUrl: [appConfig.getApiUrl(), "/api/project/", newProject.id, '/image'].join("")
+                imageUrl: [appConfig.getApiUrl(), "/api/user/", appConfig.getCurrentUserId(), "/project/", newProject.id, '/image'].join("")
             };
 
             this.dispatch(ActionTypes.addProject(projectItem));

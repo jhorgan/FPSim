@@ -78,7 +78,7 @@
                             <paper-textarea rows="7" label="Description" value={{projectDescription}} disabled$="{{isPosting}}" placeholder="Project description"></paper-textarea>
                         </div>
                         <div>
-                            <px-file-upload id="fileUpload" message="Image" multiple accept=".png,image/png" disabled$="{{isPosting}}"></px-file-upload>
+                            <px-file-upload id="fileUpload" message="Image" multiple accept=".png,image/png" disabled$="{{isPosting}}" px-file-upload-files-changed="handleFileChanged"></px-file-upload>
                             <img id="projectImage" />
                         </div>
                     </div>

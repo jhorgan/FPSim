@@ -5,7 +5,7 @@
             projectsUrl: {
                 type: String,
                 value: function () {
-                    return [appConfig.getApiUrl(), "/api/project/user/", appConfig.getCurrentUserId()].join("")
+                    return [appConfig.getApiUrl(), "/api/user/", appConfig.getCurrentUserId(), "project"].join("")
                 }
             },
             breadcrumbItems: {

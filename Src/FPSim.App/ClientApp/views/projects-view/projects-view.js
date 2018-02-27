@@ -8,7 +8,7 @@
             projectsUrl: {
                 type: String,
                 value: function () {
-                    return [appConfig.getApiUrl(), "/api/project/user/", appConfig.getCurrentUserId()].join("")
+                    return [appConfig.getApiUrl(), "/api/user/", appConfig.getCurrentUserId(), "/project"].join("")
                 }
             },
             projects: {
@@ -42,7 +42,7 @@
                     id: project.id,
                     title: project.name,
                     description: project.description,
-                    imageUrl: [appConfig.getApiUrl(), "/api/project/", project.id, '/image'].join("")
+                    imageUrl: [appConfig.getApiUrl(), "/api/user/", appConfig.getCurrentUserId(), "/project/", project.id, '/image'].join("")
                 }
             });
 
